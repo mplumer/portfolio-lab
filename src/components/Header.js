@@ -4,32 +4,22 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import {
   faGithub,
   faLinkedin,
-  faMedium,
-  faStackOverflow,
 } from "@fortawesome/free-brands-svg-icons";
 import { Box, HStack } from "@chakra-ui/react";
 
 const socials = [
   {
     icon: faEnvelope,
-    url: "mailto: hello@example.com",
+    url: "mailto: maxplumer12@gmail.com",
   },
   {
     icon: faGithub,
-    url: "https://github.com",
+    url: "https://github.com/mplumer",
   },
   {
     icon: faLinkedin,
-    url: "https://www.linkedin.com",
-  },
-  {
-    icon: faMedium,
-    url: "https://medium.com",
-  },
-  {
-    icon: faStackOverflow,
-    url: "https://stackoverflow.com",
-  },
+    url: "https://www.linkedin.com/in/maxplumer/",
+  }
 ];
 
 const Header = () => {
@@ -64,11 +54,19 @@ const Header = () => {
           alignItems="center"
         >
           <nav>
-            {/* Add social media links based on the `socials` data */}
+            <HStack spacing={8}>
+            {socials.map((social) => (
+              <a href={social.url} key={social.url}>
+                <FontAwesomeIcon icon={social.icon} size="lg" />
+              </a>
+            ))}
+            </HStack>
           </nav>
           <nav>
             <HStack spacing={8}>
               {/* Add links to Projects and Contact me section */}
+              <a href="#projects-section" onClick={handleClick("projects")}>Projects</a>
+              <a href="#contactme-section" onClick={handleClick("contact")}>Contact Me</a>
             </HStack>
           </nav>
         </HStack>
@@ -77,3 +75,4 @@ const Header = () => {
   );
 };
 export default Header;
+            
