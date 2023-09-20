@@ -21,7 +21,7 @@ const LandingSection = () => (
         name="Pete"
         src="https://bit.ly/dan-abramov"
       />
-      <Heading size="2xl" color="white">
+      <Heading size="md" color="white" paddingBottom={4}>
         {greeting}
       </Heading>
       <Heading size="lg" color="white">
