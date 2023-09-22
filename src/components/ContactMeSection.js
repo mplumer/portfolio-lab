@@ -28,20 +28,8 @@ const LandingSection = () => {
       type: 'hireMe',
       comment: ''
     },
-    onSubmit: async (values, {resetForm}) => {
-        const response = await submit('/api/contact', values);
-        if (response.type === 'success') {
-          resetForm();
-          onOpen({
-            title: 'Success!',
-            description: `Thank you ${values.firstName}! Your message has been sent successfully.`
-          });
-        } else {
-          onOpen({
-            title: 'Error!',
-            description: 'Something went wrong, please try again later!'
-          });
-        }
+    onSubmit: (values) => {
+        submit('https://example.com/contactme', values)
     },
     validationSchema: Yup.object({
       firstName: Yup.string().required('Required'),
@@ -50,6 +38,15 @@ const LandingSection = () => {
       comment: Yup.string().required('Required').min(25, 'Must be at least 25 characters')
     }),
   });
+
+  useEffect(() => {
+    if (response) {
+      onOpen(response.type, response.message);
+      if (response.type === 'success') {
+        formik.resetForm();
+      }
+    }
+  }, [response]);
 
   return (
     <FullScreenSection
@@ -65,7 +62,7 @@ const LandingSection = () => {
         <Box p={6} rounded="md" w="100%">
           <form onSubmit={formik.handleSubmit}>
             <VStack spacing={4}>
-              <FormControl isInvalid={formik.touched.firstName && formik.errors.firstName}>
+              <FormControl isInvalid={!!formik.errors.firstName && formik.touched.firstName}>
                 <FormLabel htmlFor="firstName">Name</FormLabel>
                 <Input
                   id="firstName"
